@@ -1,5 +1,6 @@
 package com.integration.io.integration.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -27,5 +28,7 @@ public class Release {
     private String name;
     private String description;
     private List<Ticket> tickets;
+    private LocalDate releaseDate;
+
     
 }

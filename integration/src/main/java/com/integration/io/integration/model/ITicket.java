@@ -1,4 +1,4 @@
-package com.integration.io.integration.service;
+package com.integration.io.integration.model;
 
 /**
  * ITicket

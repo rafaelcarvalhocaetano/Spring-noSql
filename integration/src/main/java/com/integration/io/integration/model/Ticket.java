@@ -12,17 +12,23 @@ import lombok.Setter;
  * Ticket
  */
 @Document
-@Getter
-@Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Ticket {
 
     @Id
     private String id;
+
+    @Getter @Setter
     private String title;
+
+    @Getter @Setter
     private String description;
+
+    @Getter @Setter
     private String appId;
+
+    @Getter @Setter
     private String status;
     
 }
