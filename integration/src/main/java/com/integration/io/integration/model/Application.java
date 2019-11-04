@@ -12,15 +12,20 @@ import lombok.Setter;
  * Application
  */
 @Document
-@Getter
-@Setter
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Application {
 
     @Id
+    @Getter
     private String id;
+
+    @Getter @Setter
     private String name;
+
+    @Getter @Setter
     private String description;
+    
+    @Getter @Setter
     private String owner;
 }

@@ -17,17 +17,25 @@ import lombok.ToString;
  */
 @Document
 @AllArgsConstructor
-@Getter
-@Setter
 @ToString
 @EqualsAndHashCode
 public class Release {
 
     @Id
+    @Getter
+    @Setter
     private String id;
+
+    @Getter @Setter
     private String name;
+    
+    @Getter @Setter
     private String description;
+    
+    @Getter @Setter
     private List<Ticket> tickets;
+    
+    @Getter @Setter    
     private LocalDate releaseDate;
 
     

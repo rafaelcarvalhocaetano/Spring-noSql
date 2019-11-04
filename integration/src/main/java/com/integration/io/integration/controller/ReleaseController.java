@@ -42,7 +42,7 @@ public class ReleaseController {
 
     @PutMapping(value = "/{id}")
     public Release updateRelease(@PathVariable("id") String id, @RequestBody Release release){
-        release.setId(id);
+        // release.setId(id)
         return releaseRepository.save(release);
     }
 
