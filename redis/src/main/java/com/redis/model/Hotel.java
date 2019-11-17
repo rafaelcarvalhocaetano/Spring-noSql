@@ -3,26 +3,21 @@ package com.redis.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "hotels")
+@Document()
 public class Hotel {
 
   @Id
   private String id;
   private String name;
-
-  @Indexed(direction = IndexDirection.ASCENDING)
   private int pricePerNight;
   private Address address;
   private List<Review> reviews;
 
   public Hotel() { }
 
-  public Hotel(String id, String name, int pricePerNight, Address address, List<Review> reviews) {
-    this.id = id;
+  public Hotel(String name, int pricePerNight, Address address, List<Review> reviews) {
     this.name = name;
     this.pricePerNight = pricePerNight;
     this.address = address;

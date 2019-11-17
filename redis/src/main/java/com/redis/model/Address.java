@@ -7,6 +7,12 @@ public class Address {
 
   public Address() { }
 
+  public Address(String city, String country) {
+    this.city = city;
+    this.country = country;
+  }
+
+
   public String getCity() {
     return city;
   }
@@ -21,8 +27,6 @@ public class Address {
 
   public void setCountry(String country) {
     this.country = country;
-  }
-
-  
+  }  
 
 }
