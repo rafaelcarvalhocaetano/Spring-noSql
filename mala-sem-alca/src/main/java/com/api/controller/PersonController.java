@@ -31,6 +31,8 @@ public class PersonController {
     return personService.findAll();
   }
 
+
+
   @GetMapping(value = "/{id}", produces = { JSON, XML, YML })
   public PersonVO getId(@PathVariable("id") Integer id) {
     return personService.findById(id);
