@@ -1,8 +1,10 @@
 package com.api.service;
 
+import com.api.converter.DozerConverter;
 import com.api.exceptions.ResourceNotFoundException;
 import com.api.model.Person;
 import com.api.repository.PersonRepository;
+import com.api.vo.PersonVO;
 import com.api.model.IPerson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,10 @@ public class PersonService implements IPerson {
   private PersonRepository repository;
 
   @Override
-  public Person createPerson(Person person) {
-    return repository.save(person);
+  public PersonVO createPerson(PersonVO person) {
+    Person p = DozerConverter.parseObject(person, Person.class);
+    PersonVO po = DozerConverter.parseObject(repository.save(p), PersonVO.class);
+    return po;
   }
 
   @Override
@@ -29,18 +33,20 @@ public class PersonService implements IPerson {
   }
 
   @Override
-  public Iterable<Person> findAll() {
-    return repository.findAll();
+  public Iterable<PersonVO> findAll() {
+    return DozerConverter.parseListObject(repository.findAll(), PersonVO.class);
   }
 
   @Override
-  public Person findById(Integer id) {
-    return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+  public PersonVO findById(Integer id) {
+    Person p = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+    return DozerConverter.parseObject(p, PersonVO.class);
   }
 
   @Override
-  public Person update(Person person) {
-    return repository.save(person);
+  public PersonVO update(PersonVO person) {
+    Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+    return DozerConverter.parseObject(repository.save(entity), PersonVO.class);
   }
   
 }

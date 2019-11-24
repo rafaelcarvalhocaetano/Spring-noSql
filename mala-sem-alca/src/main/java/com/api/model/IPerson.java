@@ -1,12 +1,12 @@
 package com.api.model;
 
-import com.api.model.Person;
+import com.api.vo.PersonVO;
 
 public interface IPerson {
 
-  public Person createPerson(Person person);
+  public PersonVO createPerson(PersonVO person);
   public void delete(Integer id);
-  public Person update(Person person);
-  public Iterable<Person> findAll();
-  public Person findById(Integer id);
+  public PersonVO update(PersonVO PersonVO);
+  public Iterable<PersonVO> findAll();
+  public PersonVO findById(Integer id);
 }

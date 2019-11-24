@@ -2,6 +2,7 @@ package com.api.controller;
 
 import com.api.model.Person;
 import com.api.service.PersonService;
+import com.api.vo.PersonVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,22 +24,22 @@ public class PersonController {
   private PersonService personService;
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Person> get() {
+  public Iterable<PersonVO> get() {
     return personService.findAll();
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Person getId(@PathVariable("id") Integer id) {
+  public PersonVO getId(@PathVariable("id") Integer id) {
     return personService.findById(id);
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Person save(@RequestBody Person p) {
+  public PersonVO save(@RequestBody PersonVO p) {
     return personService.createPerson(p);
   }
 
   @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Person updatePerson(@RequestBody Person p) {
+  public PersonVO updatePerson(@RequestBody PersonVO p) {
     return personService.update(p);
   }
 
