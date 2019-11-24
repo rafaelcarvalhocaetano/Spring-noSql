@@ -46,6 +46,7 @@ public class PersonService implements IPerson {
   @Override
   public PersonVO update(PersonVO person) {
     Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+    System.out.println(entity);
     return DozerConverter.parseObject(repository.save(entity), PersonVO.class);
   }
   

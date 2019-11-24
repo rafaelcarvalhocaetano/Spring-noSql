@@ -21,27 +21,29 @@ public class PersonController {
 
   private final String JSON = "application/json";
   private final String XML = "application/xml";
+  private final String YML = "application/x-yaml";
 
   @Autowired
   private PersonService personService;
 
-  @GetMapping(produces = { JSON, XML })
+  @GetMapping(produces = { JSON, XML, YML })
   public Iterable<PersonVO> get() {
     return personService.findAll();
   }
 
-  @GetMapping(value = "/{id}", produces = { JSON, XML })
+  @GetMapping(value = "/{id}", produces = { JSON, XML, YML })
   public PersonVO getId(@PathVariable("id") Integer id) {
     return personService.findById(id);
   }
 
-  @PostMapping(consumes = { JSON, XML }, produces = { JSON, XML })
+  @PostMapping(consumes = { JSON, XML, YML }, produces = { JSON, XML, YML})
   public PersonVO save(@RequestBody PersonVO p) {
     return personService.createPerson(p);
   }
 
-  @PutMapping(consumes = { JSON, XML }, produces = { JSON, XML })
+  @PutMapping(consumes = { JSON, XML, YML }, produces = { JSON, XML, YML })
   public PersonVO updatePerson(@RequestBody PersonVO p) {
+    System.out.println(p);
     return personService.update(p);
   }
 
