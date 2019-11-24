@@ -5,9 +5,15 @@ import com.api.vo.PersonVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/person/v1")
@@ -21,13 +27,8 @@ public class PersonController {
   private PersonService personService;
 
   @GetMapping(produces = { JSON, XML, YML })
-  public Iterable<PersonVO> get(
-          @RequestParam(value = "page", defaultValue = "0") int page,
-          @RequestParam(value = "limit", defaultValue = "12") int limit
-          ) {
-
-    Pageable pageable = PageRequest.of(page, limit);
-    return personService.findAll(pageable);
+  public Iterable<PersonVO> get() {
+    return personService.findAll();
   }
 
   @GetMapping(value = "/{id}", produces = { JSON, XML, YML })
