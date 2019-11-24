@@ -1,11 +1,10 @@
 package com.api.controller;
 
-import com.api.model.Person;
 import com.api.service.PersonService;
 import com.api.vo.PersonVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,28 +16,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/person")
+@RequestMapping(value = "/person/v1")
 public class PersonController {
+
+  private final String JSON = "application/json";
+  private final String XML = "application/xml";
 
   @Autowired
   private PersonService personService;
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(produces = { JSON, XML })
   public Iterable<PersonVO> get() {
     return personService.findAll();
   }
 
-  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", produces = { JSON, XML })
   public PersonVO getId(@PathVariable("id") Integer id) {
     return personService.findById(id);
   }
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(consumes = { JSON, XML }, produces = { JSON, XML })
   public PersonVO save(@RequestBody PersonVO p) {
     return personService.createPerson(p);
   }
 
-  @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping(consumes = { JSON, XML }, produces = { JSON, XML })
   public PersonVO updatePerson(@RequestBody PersonVO p) {
     return personService.update(p);
   }
