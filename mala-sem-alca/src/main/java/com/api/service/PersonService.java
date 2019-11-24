@@ -1,27 +1,46 @@
 package com.api.service;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
+import com.api.exceptions.ResourceNotFoundException;
 import com.api.model.Person;
+import com.api.repository.PersonRepository;
+import com.api.model.IPerson;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * PersonService
- */
+import lombok.extern.log4j.Log4j2;
+
 @Service
-public class PersonService {
+@Log4j2
+public class PersonService implements IPerson {
 
-  private final AtomicInteger count = new AtomicInteger();
+  @Autowired
+  private PersonRepository repository;
 
-  public Person findById(String id) {
-    Person p = new Person();
-    p.setId(count.incrementAndGet());
-    p.setFirstName("Rafael");
-    p.setLastName("CC");
-    p.setAddress("Rua");
-    p.setGender("M");
-    return p;
+  @Override
+  public Person createPerson(Person person) {
+    return repository.save(person);
+  }
+
+  @Override
+  public void delete(Integer id) {
+    Person p = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("SEM ID"));
+    repository.delete(p);
+  }
+
+  @Override
+  public Iterable<Person> findAll() {
+    return repository.findAll();
+  }
+
+  @Override
+  public Person findById(Integer id) {
+    return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+  }
+
+  @Override
+  public Person update(Person person) {
+    return repository.save(person);
   }
   
 }
