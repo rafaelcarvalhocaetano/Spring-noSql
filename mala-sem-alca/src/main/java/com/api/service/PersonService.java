@@ -8,12 +8,13 @@ import com.api.vo.PersonVO;
 import com.api.model.IPerson;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
+
 
 @Service
-@Log4j2
 public class PersonService implements IPerson {
 
   @Autowired
@@ -46,7 +47,12 @@ public class PersonService implements IPerson {
   @Override
   public PersonVO update(PersonVO person) {
     Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("Erro na bagaça"));
+    System.out.println(entity);
     return DozerConverter.parseObject(repository.save(entity), PersonVO.class);
   }
-  
+
+    public Iterable<PersonVO> findAll(Pageable pageable) {
+      List<Person> entities = repository.findAll(pageable).getContent();
+      return DozerConverter.parseListObject(entities, PersonVO.class);
+    }
 }
