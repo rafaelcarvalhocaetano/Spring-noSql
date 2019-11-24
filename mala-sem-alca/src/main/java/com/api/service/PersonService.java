@@ -8,6 +8,7 @@ import com.api.vo.PersonVO;
 import com.api.model.IPerson;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +52,14 @@ public class PersonService implements IPerson {
     return DozerConverter.parseObject(repository.save(entity), PersonVO.class);
   }
 
-    public Iterable<PersonVO> findAll(Pageable pageable) {
+    public Page<PersonVO> findAll(Pageable pageable) {
       List<Person> entities = repository.findAll(pageable).getContent();
-      return DozerConverter.parseListObject(entities, PersonVO.class);
+      // Pageable entities = repository.findAll(pageable);
+      return (Page) DozerConverter.parseListObject(entities, PersonVO.class);
+      // return entities.map(this::covertToPersonVO);
+    }
+
+    private PersonVO covertToPersonVO(Person pd) {
+      return DozerConverter.parseObject(pd, PersonVO.class);
     }
 }

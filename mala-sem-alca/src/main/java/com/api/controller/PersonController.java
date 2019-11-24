@@ -4,10 +4,12 @@ import com.api.service.PersonService;
 import com.api.vo.PersonVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,7 +24,7 @@ public class PersonController {
   private PersonService personService;
 
   @GetMapping(produces = { JSON, XML, YML })
-  public Iterable<PersonVO> get(
+  public ResponseEntity<Page<PersonVO>> get(
           @RequestParam(value = "page", defaultValue = "0") int page,
           @RequestParam(value = "limit", defaultValue = "12") int limit,
           @RequestParam(value = "direction", defaultValue = "asc") String direction
@@ -30,8 +32,9 @@ public class PersonController {
 
     Sort.Direction desc = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
     Pageable pageable = PageRequest.of(page, limit, Sort.by(desc));
+    Page<PersonVO> persons = personService.findAll(pageable);
 
-    return personService.findAll(pageable);
+    return new ResponseEntity<>(persons, HttpStatus.OK);
   }
 
 
