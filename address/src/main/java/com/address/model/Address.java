@@ -1,18 +1,14 @@
 package com.address.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Address
- */
 @Entity
-@Table(name = "msa_address")
-public class Address implements Serializable {
+@Table(name = "adr_address")
+public class Address extends Chips {
 
-  private static final long serialVersionUID = 1L;
+  private City city = new City();
+  private State state = new State();
 
   
 }
