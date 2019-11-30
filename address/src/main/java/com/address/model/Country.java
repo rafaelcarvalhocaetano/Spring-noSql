@@ -8,6 +8,5 @@ import javax.persistence.Table;
 @Table(name = "adr_country")
 public class Country extends Chips {
 
-  @ManyToOne
   private State states;
 }

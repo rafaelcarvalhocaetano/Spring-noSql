@@ -7,8 +7,7 @@ import javax.persistence.Table;
 @Table(name = "adr_address")
 public class Address extends Chips {
 
-  private City city = new City();
-  private State state = new State();
+  private String rua;
 
   
 }

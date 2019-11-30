@@ -10,7 +10,6 @@ public class City extends Chips {
 
   private String zone;
 
-  @OneToMany
   private State state;
 
 }
