@@ -23,12 +23,12 @@ public class UserService {
     return repository.findAll();
   }
 
-  public User create(User user) throws UserExceptions {
+  public void create(User user) throws UserExceptions {
     User userExistent = repository.findByUsername(user.getUsername());
     if (userExistent != null) {
       throw new UserExceptions("User exists in database");
     }
-    return repository.save(user);
+    repository.save(user);
   }
 
   public Optional<User> getId(Long id) throws UserNotFoundException {
