@@ -2,6 +2,7 @@ package com.management.user.controller;
 
 import java.util.Optional;
 
+import com.management.user.exceptions.UserExceptions;
 import com.management.user.exceptions.UserNotFoundException;
 import com.management.user.model.User;
 import com.management.user.services.UserService;
@@ -54,17 +55,24 @@ public class UserController {
 
   @PostMapping(consumes = {JSON}, produces = {JSON})
   public User createUser(@RequestBody User user) {
-    System.out.println(user);
-    return userService.create(user);
+    try {
+      return userService.create(user);      
+    } catch (UserExceptions e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+    }
   }
 
   @PutMapping(consumes = {JSON}, produces = {JSON})
   public User updateUser(@RequestBody User user) {
-    return userService.update(user);
+    try {
+      return userService.update(user);
+    } catch (UserExceptions e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
   }
 
   @DeleteMapping(value = "/{id}", consumes = {JSON}, produces = {JSON})
-  public boolean deleteUser(@PathVariable("id") Long id) {
-    return userService.delete(id);
+  public void deleteUser(@PathVariable("id") Long id) {
+    userService.delete(id);
   }
 }
