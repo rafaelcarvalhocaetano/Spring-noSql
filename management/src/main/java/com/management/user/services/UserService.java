@@ -3,6 +3,7 @@ package com.management.user.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.management.user.exceptions.UserNotFoundException;
 import com.management.user.model.User;
 import com.management.user.repository.UserRepository;
 
@@ -24,8 +25,12 @@ public class UserService {
     return repository.save(user);
   }
 
-  public Optional<User> getId(Long id) {
+  public Optional<User> getId(Long id) throws UserNotFoundException {
     Optional<User> user = repository.findById(id);
+
+    if (!user.isPresent()) {
+      throw new UserNotFoundException("Erro ao carregar");
+    }
     return user;
   }
 
@@ -46,7 +51,7 @@ public class UserService {
     return false;
   }
 
-  public User getUserName(String name) {
+  public User getUserName(String name) throws UserNotFoundException {
     return repository.findByUsername(name);
   }
   
