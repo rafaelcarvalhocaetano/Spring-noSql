@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "MNG_USER", schema = "usermanagement")
 public class User {
@@ -16,11 +15,11 @@ public class User {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "USER_NAME", length=50, nullable=false, unique=true)
+  @Column(name = "USER_NAME", length=50, nullable=false)
   private String username;
 
   @Column(name = "FIRST_NAME", length = 50, nullable = false)
-  private String firtname;
+  private String firstname;
   
   @Column(name = "LAST_NAME", length = 50, nullable = false)
   private String lastname;
@@ -40,7 +39,7 @@ public class User {
   public User(Long id, String username, String firtname, String lastname, String email, String role, String ssn) {
     this.id = id;
     this.username = username;
-    this.firtname = firtname;
+    this.firstname = firtname;
     this.lastname = lastname;
     this.email = email;
     this.role = role;
@@ -64,11 +63,11 @@ public class User {
   }
 
   public String getFirtname() {
-    return firtname;
+    return firstname;
   }
 
   public void setFirtname(String firtname) {
-    this.firtname = firtname;
+    this.firstname = firtname;
   }
 
   public String getLastname() {
@@ -130,7 +129,7 @@ public class User {
   
   @Override
   public String toString() {
-    return "User [email=" + email + ", firtname=" + firtname + ", id=" + id + ", lastname=" + lastname + ", role="
+    return "User [email=" + email + ", firstname=" + firstname + ", id=" + id + ", lastname=" + lastname + ", role="
         + role + ", ssn=" + ssn + ", username=" + username + "]";
   }
   
