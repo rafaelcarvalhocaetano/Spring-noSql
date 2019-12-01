@@ -2,6 +2,8 @@ package com.management.user.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.management.user.exceptions.UserExceptions;
 import com.management.user.exceptions.UserNotFoundException;
 import com.management.user.model.User;
@@ -57,7 +59,7 @@ public class UserController {
   }
 
   @PostMapping(consumes = {JSON}, produces = {JSON})
-  public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+  public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
     try {
       userService.create(user);  
       HttpHeaders headers = new HttpHeaders();
