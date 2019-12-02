@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -20,7 +21,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
   ) {
     CustomErrorDetails details = new CustomErrorDetails(
       new Date(), 
-      "ERRO BLABLABLAAAAAA",
+      "ERROR 0001",
       ex.getMessage()
       );
     return new ResponseEntity<Object>(details, HttpStatus.BAD_REQUEST);
@@ -33,9 +34,20 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
   ) {
     CustomErrorDetails details = new CustomErrorDetails(
       new Date(), 
-      "GET ERRO BLABLABLABLA",
+      "GET ERRO 00002",
       ex.getMessage()
       );
       return new ResponseEntity<Object>(details, HttpStatus.METHOD_NOT_ALLOWED);
   }
+
+  // not user name
+  @ExceptionHandler(UserNotNameException.class)
+  public final ResponseEntity<Object>  handlerUserNameNotFountException(
+    UserNotNameException ex, WebRequest request) {
+      CustomErrorDetails details = new CustomErrorDetails(
+        new Date(), ex.getMessage(), request.getDescription(false)
+      );
+      return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+    }
+
 }

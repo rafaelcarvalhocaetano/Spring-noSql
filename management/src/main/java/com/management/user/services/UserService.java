@@ -58,7 +58,7 @@ public class UserService {
     }
   }
 
-  public User getUserName(String name) throws UserNotFoundException {
+  public User getUserName(String name) {
     return repository.findByUsername(name);
   }
   

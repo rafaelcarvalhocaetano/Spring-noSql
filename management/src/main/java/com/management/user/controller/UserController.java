@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.management.user.exceptions.UserExceptions;
 import com.management.user.exceptions.UserNotFoundException;
+import com.management.user.exceptions.UserNotNameException;
 import com.management.user.model.User;
 import com.management.user.services.UserService;
 
@@ -49,12 +50,12 @@ public class UserController {
   }
 
   @GetMapping(value = "/name/{name}")
-  public User getUserName(@PathVariable("name") String name) {
-    try {
-      return userService.getUserName(name);
-    } catch (UserNotFoundException e) {
-      new UserNotFoundException("Mais de um Item");
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+  public User getUserName(@PathVariable("name") String name) throws UserNotNameException {
+    User user = userService.getUserName(name);
+    if (user == null) {
+      throw new UserNotNameException("User Name: " + name + "not found in User repository");
+    } else {
+      return user;
     }
   }
 
@@ -83,4 +84,5 @@ public class UserController {
   public void deleteUser(@PathVariable("id") Long id) {
     userService.delete(id);
   }
+
 }
