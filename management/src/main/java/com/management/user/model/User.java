@@ -38,8 +38,7 @@ public class User {
   @Column(name = "SSN", length=50, nullable=false)
   private String ssn;
 
-  public User() {
-  }
+  public User() { }
 
   public User(Long id, String username, String firtname, String lastname, String email, String role, String ssn) {
     this.id = id;
