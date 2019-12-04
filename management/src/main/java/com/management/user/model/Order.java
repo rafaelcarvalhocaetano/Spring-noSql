@@ -1,7 +1,7 @@
 package com.management.user.model;
 
 import java.io.Serializable;
-
+import com.management.user.model.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ public class Order implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long orderId;
+  private Long id;
 
   private String orderDescription;
 
@@ -27,21 +27,20 @@ public class Order implements Serializable {
   private User user;
 
   public Order() {
-    super();
   }
 
   public Order(Long orderId, String orderDescription, User user) {
-    this.orderId = orderId;
+    this.id = orderId;
     this.orderDescription = orderDescription;
     this.user = user;
   }
 
   public Long getOrderId() {
-    return orderId;
+    return id;
   }
 
   public void setOrderId(Long orderId) {
-    this.orderId = orderId;
+    this.id = orderId;
   }
 
   public String getOrderDescription() {
@@ -64,7 +63,7 @@ public class Order implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
 
@@ -77,17 +76,17 @@ public class Order implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Order other = (Order) obj;
-    if (orderId == null) {
-      if (other.orderId != null)
+    if (id == null) {
+      if (other.id != null)
         return false;
-    } else if (!orderId.equals(other.orderId))
+    } else if (!id.equals(other.id))
       return false;
     return true;
   }
 
   @Override
   public String toString() {
-    return "Order [orderDescription=" + orderDescription + ", orderId=" + orderId + ", user=" + user + "]";
+    return "Order [orderDescription=" + orderDescription + ", orderId=" + id + ", user=" + user + "]";
   }
   
 }

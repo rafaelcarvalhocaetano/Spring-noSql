@@ -1,8 +1,7 @@
 package com.management.user.model;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import com.management.user.model.Order;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,8 +39,8 @@ public class User {
   @Column(name = "SSN", length=50, nullable=false)
   private String ssn;
 
-  @OneToMany
-  private List<Order> orders = new ArrayList<>();
+  @OneToMany(mappedBy = "user")
+  private List<Order> orders;
 
   public User() { }
 
