@@ -1,5 +1,6 @@
 package com.management.user.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -39,8 +40,8 @@ public class User {
   @Column(name = "SSN", length=50, nullable=false)
   private String ssn;
 
-  @OneToMany(mappedBy = "user")
-  private List<Order> orders;
+  @OneToMany
+  private List<Order> orders = new ArrayList<>();
 
   public User() { }
 
