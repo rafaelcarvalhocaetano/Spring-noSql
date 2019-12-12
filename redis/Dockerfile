@@ -1,4 +1,3 @@
-FROM maven:3.6.1-jdk-11-slim
+FROM node:alpine
 
-FROM mysql:5.7.22
-EXPOSE 3306
+WORKDIR: /usr/src/app
