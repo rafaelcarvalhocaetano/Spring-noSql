@@ -1,17 +1,15 @@
 package com.management.user.model;
 
 import java.io.Serializable;
-import com.management.user.model.User;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "order")
 public class Order implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -22,25 +20,20 @@ public class Order implements Serializable {
 
   private String orderDescription;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JsonIgnore
-  private User user;
-
   public Order() {
   }
 
-  public Order(Long orderId, String orderDescription, User user) {
-    this.id = orderId;
+  public Order(Long id, String orderDescription) {
+    this.id = id;
     this.orderDescription = orderDescription;
-    this.user = user;
   }
 
   public Long getOrderId() {
     return id;
   }
 
-  public void setOrderId(Long orderId) {
-    this.id = orderId;
+  public void setOrderId(Long id) {
+    this.id = id;
   }
 
   public String getOrderDescription() {
@@ -49,14 +42,6 @@ public class Order implements Serializable {
 
   public void setOrderDescription(String orderDescription) {
     this.orderDescription = orderDescription;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
   }
 
   @Override
@@ -86,7 +71,7 @@ public class Order implements Serializable {
 
   @Override
   public String toString() {
-    return "Order [orderDescription=" + orderDescription + ", orderId=" + id + ", user=" + user + "]";
+    return "Order [orderDescription=" + orderDescription + ", orderId=" + id + "]";
   }
   
 }

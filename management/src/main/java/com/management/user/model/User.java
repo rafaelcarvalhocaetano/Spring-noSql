@@ -1,13 +1,10 @@
 package com.management.user.model;
 
-import java.util.List;
-import com.management.user.model.Order;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -39,15 +36,13 @@ public class User {
   @Column(name = "SSN", length=50, nullable=false)
   private String ssn;
 
-  @OneToMany(mappedBy = "user")
-  private List<Order> orders;
-
   public User() { }
 
-  public User(Long id, String username, String firtname, String lastname, String email, String role, String ssn) {
+  public User(Long id, String username, String firstname, String lastname,
+    String email, String role, String ssn) {
     this.id = id;
     this.username = username;
-    this.firstname = firtname;
+    this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
     this.role = role;
@@ -110,14 +105,6 @@ public class User {
     this.ssn = ssn;
   }
 
-  public List<Order> getOrder() {
-    return orders;
-  }
-
-  public void setOrder(List<Order> order) {
-    this.orders = order;
-  }
-
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -147,6 +134,5 @@ public class User {
   public String toString() {
     return "User [email=" + email + ", firstname=" + firstname + ", id=" + id + ", lastname=" + lastname + ", role="
         + role + ", ssn=" + ssn + ", username=" + username + "]";
-  }
-  
+  }  
 }
