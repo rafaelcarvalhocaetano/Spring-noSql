@@ -1,7 +1,9 @@
 package com.apisw.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.apisw.exceptions.UserException;
 import com.apisw.model.User;
 import com.apisw.repository.UserRepository;
 
@@ -19,6 +21,11 @@ public class UserService {
 
   public List<User> findAll() {
     return repository.findAll();
+  }
+
+  public User findById(String id) {
+    Optional<User> userId = repository.findById(id);
+    return userId.orElseThrow(() -> new UserException("User not found"));
   }
   
 }
