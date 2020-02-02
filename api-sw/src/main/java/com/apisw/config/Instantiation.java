@@ -1,6 +1,7 @@
 package com.apisw.config;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.TimeZone;
 
 import com.apisw.DTO.AuthDTO;
@@ -18,25 +19,45 @@ import org.springframework.context.annotation.Configuration;
 public class Instantiation implements CommandLineRunner {
 
   @Autowired
-  private UserRepository repository;
+  private UserRepository userRepository;
 
   @Autowired
-  private PostRepository irepository;
+  private PostRepository postRepository;
 
   @Override
-  public void run(String... args) throws Exception {
+  public void run(final String... args) throws Exception {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-    repository.deleteAll();
+    User rose = new User();
+    User rafa = new User();
+    Post rosePost = new Post();
+    Post rafaPost = new Post();    
+    userRepository.deleteAll();
+    postRepository.deleteAll();
+    
     for (int i = 0; i <= 10; i++) {
-      User rose = new User(null, "Rosemeire 001 "+ i, "rose@gmail.com");
-      User rafa = new User(null, "Rafael 001 "+ i, "r@gmail.com");
-      repository.save(rose);
-      repository.save(rafa);
-      irepository.save(new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rose)));
+      rose = new User(null, "Rosemeire 001 "+ i, "rose@gmail.com");
+      rafa = new User(null, "Rafael 001 "+ i, "r@gmail.com");
+      rosePost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rose));
+      rafaPost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rafa));
+    
+      userRepository.save(rose);
+      postRepository.save(rafaPost);
+      userRepository.save(rafa);
+      postRepository.save(rosePost);
+
+      rose.getPosts().addAll(Arrays.asList(rosePost));
+      rafa.getPosts().addAll(Arrays.asList(rafaPost));
+
+      userRepository.save(rose);
+
     }
+
+
+
+    
   }
 
   
