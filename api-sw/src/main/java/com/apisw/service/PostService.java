@@ -20,7 +20,7 @@ public class PostService {
   }
 
   public Iterable<Post> findByTitle(String text) {
-    return repository.findByTitleContainingIgnoreCase(text);
+    return repository.searchTitle(text);
   }
   
 }
