@@ -2,9 +2,11 @@ package com.apisw.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.apisw.DTO.UserDTO;
+import com.apisw.model.Post;
 import com.apisw.model.User;
 import com.apisw.service.UserService;
 
@@ -59,6 +61,12 @@ public class UserController {
   public ResponseEntity<Void> update(@RequestBody User udto) {
     service.update(udto);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping(value = "{id}/post")
+  public ResponseEntity<Iterable<Post>> findPost(@PathVariable String id) {
+    User user = service.findById(id);
+    return ResponseEntity.ok().body(user.getPosts());
   }
   
 }

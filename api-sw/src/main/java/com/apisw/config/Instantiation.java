@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.TimeZone;
 
 import com.apisw.DTO.AuthDTO;
+import com.apisw.DTO.CommentDTO;
 import com.apisw.model.Post;
 import com.apisw.model.User;
 import com.apisw.repository.PostRepository;
@@ -29,23 +30,26 @@ public class Instantiation implements CommandLineRunner {
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-    User rose = new User();
-    User rafa = new User();
-    Post rosePost = new Post();
-    Post rafaPost = new Post();    
+  
     userRepository.deleteAll();
     postRepository.deleteAll();
     
     for (int i = 0; i <= 10; i++) {
-      rose = new User(null, "Rosemeire 001 "+ i, "rose@gmail.com");
-      rafa = new User(null, "Rafael 001 "+ i, "r@gmail.com");
-      rosePost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rose));
-      rafaPost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rafa));
+      User rose = new User(null, "Rosemeire 001 "+ i, "rose@gmail.com");
+      User rafa = new User(null, "Rafael 001 "+ i, "r@gmail.com");
+      Post rosePost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rose));
+      Post rafaPost = new Post(null, dateFormat.parse("21/03/2020"), "Viajar -> " + i, "Fui para São Paulo qtd -> " + i, new AuthDTO(rafa));
     
       userRepository.save(rose);
-      postRepository.save(rafaPost);
       userRepository.save(rafa);
+
+      CommentDTO commnentRose = new CommentDTO("Boa viagem Chapa", dateFormat.parse("21/12/2020"), new AuthDTO(rose));
+      CommentDTO commnentRafa = new CommentDTO("Boa viagem Chapa", dateFormat.parse("21/12/2020"), new AuthDTO(rafa));
+      
+      rosePost.getComments().addAll(Arrays.asList(commnentRose));
+      rafaPost.getComments().addAll(Arrays.asList(commnentRafa));
+
+      postRepository.save(rafaPost);
       postRepository.save(rosePost);
 
       rose.getPosts().addAll(Arrays.asList(rosePost));
