@@ -18,5 +18,9 @@ public class PostService {
     final Optional<Post> userId = repository.findById(id);
     return userId.orElseThrow(() -> new UserException("Post not found"));
   }
+
+  public Iterable<Post> findByTitle(String text) {
+    return repository.findByTitleContainingIgnoreCase(text);
+  }
   
 }
