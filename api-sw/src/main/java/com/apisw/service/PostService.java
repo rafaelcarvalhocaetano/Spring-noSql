@@ -1,5 +1,6 @@
 package com.apisw.service;
 
+import java.util.Date;
 import java.util.Optional;
 import com.apisw.exceptions.UserException;
 import com.apisw.model.Post;
@@ -21,6 +22,11 @@ public class PostService {
 
   public Iterable<Post> findByTitle(String text) {
     return repository.searchTitle(text);
+  }
+
+  public Iterable<Post> fullSearch(String text, Date minDate, Date maxDate) {
+    maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+    return repository.fullSearch(text, minDate, maxDate);
   }
   
 }

@@ -1,5 +1,7 @@
 package com.apisw.controller;
 
+import java.util.Date;
+
 import com.apisw.model.Post;
 import com.apisw.service.PostService;
 import com.apisw.util.URL;
@@ -26,7 +28,6 @@ public class PostController {
     return ResponseEntity.ok().body(listPost);    
   }
 
-
   @GetMapping(value = "/titlesearch")
   public ResponseEntity<Iterable<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
     text = URL.decodeParam(text);
@@ -34,5 +35,18 @@ public class PostController {
     return ResponseEntity.ok().body(list);    
   }
 
+  @GetMapping(value = "/fullsearch")
+  public ResponseEntity<Iterable<Post>> fullDate(
+    @RequestParam(value = "text", defaultValue = "") String text,
+    @RequestParam(value = "minDate", defaultValue = "") String minDate,
+    @RequestParam(value = "maxDate", defaultValue = "") String maxDate
+    ) {
+    text = URL.decodeParam(text);
+    Date min = URL.convertDate(minDate, new Date(0L));
+    Date max = URL.convertDate(maxDate, new Date());
+
+    Iterable<Post> list = service.fullSearch(text, min, max);
+    return ResponseEntity.ok().body(list);    
+  }
   
 }
