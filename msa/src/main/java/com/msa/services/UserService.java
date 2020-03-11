@@ -25,5 +25,14 @@ public class UserService {
    Optional<User> obj = userRepository.findById(id);
    return obj.orElseThrow(() -> new UserExceptions("Usuário não encontrado"));
   }
+
+
+  public User insert(User u) {
+    return userRepository.insert(u);
+  }
+  
+  public User fromDTO(UserDTO u) {
+    return new User(u.getId(), u.getName(), u.getEmail());
+  }
   
 }
