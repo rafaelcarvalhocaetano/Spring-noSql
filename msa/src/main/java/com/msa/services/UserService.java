@@ -35,4 +35,9 @@ public class UserService {
     return new User(u.getId(), u.getName(), u.getEmail());
   }
   
+
+  public void delete(String id) {
+    getId(id);
+    userRepository.deleteById(id);
+  }
 }
