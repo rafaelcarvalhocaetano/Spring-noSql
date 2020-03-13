@@ -26,18 +26,27 @@ public class UserService {
    return obj.orElseThrow(() -> new UserExceptions("Usuário não encontrado"));
   }
 
-
-  public User insert(User u) {
-    return userRepository.insert(u);
+  public User insert(User user) {
+    return userRepository.insert(user);
   }
   
   public User fromDTO(UserDTO u) {
     return new User(u.getId(), u.getName(), u.getEmail());
   }
-  
 
   public void delete(String id) {
     getId(id);
     userRepository.deleteById(id);
+  }
+
+  public User update(User user) {
+    User newObj = getId(user.getId());
+    updateData(newObj, user);
+    return userRepository.save(newObj);
+  }
+
+  private void updateData(User newObj, User user) {
+    newObj.setName(user.getName());
+    newObj.setEmail(user.getEmail());
   }
 }

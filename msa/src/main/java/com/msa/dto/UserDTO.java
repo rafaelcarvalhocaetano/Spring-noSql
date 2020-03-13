@@ -1,7 +1,5 @@
 package com.msa.dto;
 
-import java.util.Optional;
-
 import com.msa.model.User;
 
 public class UserDTO {
