@@ -1,8 +1,13 @@
 package com.msa.configuration;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
 
+import com.msa.dto.AuthorDTO;
+import com.msa.model.Post;
 import com.msa.model.User;
+import com.msa.repository.PostRepository;
 import com.msa.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +18,31 @@ import org.springframework.context.annotation.Configuration;
 public class CommandRun implements CommandLineRunner {
 
   @Autowired
-  private UserRepository repo;
+  private UserRepository user;
+
+  @Autowired
+  private PostRepository post;
 
   @Override
   public void run(String... args) throws Exception {
-    
 
-    repo.deleteAll();
+    
+    SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+    data.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+    user.deleteAll();
+    post.deleteAll();
 
     User maria = new User(null, "MARIA 1", "a@gmail.com1");
     User rafael = new User(null, "RAFA 1", "a@gmail.com1");
     User bob = new User(null, "BOB 1", "a@gmail.com1");
 
-    repo.saveAll(Arrays.asList(maria, rafael, bob));
+    user.saveAll(Arrays.asList(maria, rafael, bob));
+
+    Post postOne = new Post(null, data.parse("21/03/2020"), "Partiu Viagem", "Vou viajar para São Paulo.", new AuthorDTO(maria));
+    Post postTwo = new Post(null, data.parse("10/02/2019"), "Partiu Viagem", "Vou viajar para São Paulo.", new AuthorDTO(maria));
+
+    post.saveAll(Arrays.asList(postOne, postTwo));
 
   }
 
