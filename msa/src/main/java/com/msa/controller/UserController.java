@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.msa.dto.UserDTO;
+import com.msa.model.Post;
 import com.msa.model.User;
 import com.msa.services.UserService;
 
@@ -63,6 +64,13 @@ public class UserController {
     user.setId(id);
     user = service.update(user);
     return ResponseEntity.noContent().build();
+  }
+
+
+  @GetMapping(value = "/{id}/post")
+  public ResponseEntity<List<Post>> findPost(@PathVariable("id") String id) {
+    User user = service.getId(id);
+    return ResponseEntity.ok().body(user.getPosts());
   }
 
 

@@ -1,8 +1,11 @@
 package com.msa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.msa.dto.AuthorDTO;
+import com.msa.dto.CommentDTO;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +19,8 @@ public class Post {
   private String title;
   private String body;
   private AuthorDTO author;
+
+  private List<CommentDTO> commentDTOs = new ArrayList<>();
 
   public Post() {
   }
@@ -73,6 +78,20 @@ public class Post {
    */
   public void setAuthor(AuthorDTO author) {
     this.author = author;
+  }
+
+  /**
+   * @return the commentDTOs
+   */
+  public List<CommentDTO> getCommentDTOs() {
+    return commentDTOs;
+  }
+
+  /**
+   * @param commentDTOs the commentDTOs to set
+   */
+  public void setCommentDTOs(List<CommentDTO> commentDTOs) {
+    this.commentDTOs = commentDTOs;
   }
 
   @Override

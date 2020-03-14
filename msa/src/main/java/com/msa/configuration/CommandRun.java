@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.TimeZone;
 
 import com.msa.dto.AuthorDTO;
+import com.msa.dto.CommentDTO;
 import com.msa.model.Post;
 import com.msa.model.User;
 import com.msa.repository.PostRepository;
@@ -42,7 +43,18 @@ public class CommandRun implements CommandLineRunner {
     Post postOne = new Post(null, data.parse("21/03/2020"), "Partiu Viagem", "Vou viajar para São Paulo.", new AuthorDTO(maria));
     Post postTwo = new Post(null, data.parse("10/02/2019"), "Partiu Viagem", "Vou viajar para São Paulo.", new AuthorDTO(maria));
 
+    CommentDTO cOne = new CommentDTO("Boa viagem", data.parse("13/03/2020"), new AuthorDTO(maria));
+    CommentDTO cTwo = new CommentDTO("Boa viagem", data.parse("13/03/2020"), new AuthorDTO(rafael));
+    CommentDTO cThree = new CommentDTO("Boa viagem", data.parse("13/03/2020"), new AuthorDTO(maria));
+    CommentDTO cFour = new CommentDTO("Boa viagem", data.parse("13/03/2020"), new AuthorDTO(bob));
+
+    postOne.getCommentDTOs().addAll(Arrays.asList(cOne, cTwo));
+    postTwo.getCommentDTOs().addAll(Arrays.asList(cThree, cFour));
+
     post.saveAll(Arrays.asList(postOne, postTwo));
+
+    maria.getPosts().addAll(Arrays.asList(postOne, postTwo));
+    user.save(maria);
 
   }
 

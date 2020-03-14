@@ -1,6 +1,10 @@
 package com.msa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -10,6 +14,9 @@ public class User {
   private String id;
   private String name;
   private String email;
+
+  @DBRef(lazy = true)
+  private List<Post> posts = new ArrayList<>();
 
   public User() {
   }
@@ -42,6 +49,20 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  /**
+   * @return the posts
+   */
+  public List<Post> getPosts() {
+    return posts;
+  }
+
+  /**
+   * @param posts the posts to set
+   */
+  public void setPosts(List<Post> posts) {
+    this.posts = posts;
   }
 
   @Override
